@@ -30,11 +30,11 @@ const enrutador = {
         if (data.params && data.params.id) {
           usuarioId = data.params.id;
         } else {
-          _data.listar({ directorio: data.ruta }, (error, cotizaciones) => {
+          _data.listar({ directorio: data.ruta }, (error, usuarios) => {
             if (error) {
               callback(500, JSON.stringify({ error }));
-            } else if (cotizaciones) {
-              callback(200, JSON.stringify(cotizaciones));
+            } else if (usuarios) {
+              callback(200, JSON.stringify(usuarios));
             } else {
               callback(
                 500,
