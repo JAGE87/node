@@ -14,7 +14,9 @@ const enrutador = {
     let usuarioId;
     switch (data.metodo) {
       case 'post':
-        const identificador = _identificador();
+        var extraer_id = data.payload[10]+data.payload[11]+data.payload[12]+data.payload[13]+data.payload[14]+data.payload[15]+data.payload[16]+data.payload[17];
+        console.log('extraer_id = ', extraer_id);
+        const identificador = extraer_id;
         _data.crear(
           { directorio: data.ruta, archivo: identificador, data: data.payload },
           error => {
