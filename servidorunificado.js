@@ -4,7 +4,7 @@ const _data = require('./lib/data');
 const _identificador = require('./lib/identificador');
 
 const enrutador = {
-  ejemplo: (data, callback) => {
+  ejemplos: (data, callback) => {
     callback(200, JSON.stringify({ mensaje: 'esto es un ejemplo' }));
   },
   noEncontrado: (data, callback) => {
@@ -18,7 +18,7 @@ const enrutador = {
         console.log('extraer_id = ', extraer_id);
         const identificador = extraer_id;
         _data.crear(
-          { directorio: data.ruta, archivo: identificador, data: data.payload },
+          { directorio: data.ruta, archivo: identificador, data: data.payload},
           error => {
             if (error) {
               callback(500, JSON.stringify({ error }));
@@ -56,7 +56,7 @@ const enrutador = {
             } else {
               callback(
                 500,
-                JSON.stringify({ error: 'Hubo un error al leer la cotización' })
+                JSON.stringify({ error: 'Hubo un error al leer el usuario' })
               );
             }
           }
@@ -98,7 +98,7 @@ const enrutador = {
             } else {
               callback(
                 500,
-                JSON.stringify({ error: 'Hubo un error al leer la cotización' })
+                JSON.stringify({ error: 'Hubo un error al leer el usuario' })
               );
             }
           }
@@ -132,7 +132,7 @@ const enrutador = {
             } else {
               callback(
                 500,
-                JSON.stringify({ error: 'Hubo un error al leer la cotización' })
+                JSON.stringify({ error: 'Hubo un error al leer el usuario' })
               );
             }
           }
@@ -170,12 +170,14 @@ const servidorUnificado = (req, res) => {
   // Obtenemos un payload, si hay
   const decoder = new StringDecoder('utf-8');
   let buffer = '';
+  let extraer_id = '';
   req.on('data', data => {
     buffer += decoder.write(data);
   });
   req.on('end', () => {
     buffer += decoder.end();
     console.log('buffer = ', buffer);
+    extraer_id = buffer[10]+buffer[11];
 
     const data = {
       ruta: rutaLimpia,
